@@ -47,6 +47,5 @@ export class LoginComponent implements OnInit, AfterViewInit{
 
   onSubmit(form: FormGroup){
     this.AuthService.login(form.value.email)
-    console.log("Joined")
   }
 }
