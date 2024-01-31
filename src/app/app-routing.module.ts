@@ -1,11 +1,13 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { isLoggedInGuard } from './guards/is-logged-in.guard';
+import { isLoggedOutGuard } from './guards/is-logged-out.guard';
 
 const routes: Routes = [
   {
     path: 'auth',
-    loadChildren: () => import('./auth/auth.module').then( module => module.AuthModule)
+    loadChildren: () => import('./auth/auth.module').then( module => module.AuthModule),
+    canActivate: [isLoggedOutGuard]
   },
   {
     path: 'fileRead',
