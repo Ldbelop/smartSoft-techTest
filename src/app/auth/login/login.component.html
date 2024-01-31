@@ -5,18 +5,19 @@
 <section class="loginContainer">
   <img class="smartsoftIcon" src="../../../assets/cropped-Logo.png" alt="Smartsoft Logo">
   <h1>Inicia sesión</h1>
-  <section class="inputDiv">
+  <form class="inputDiv" [formGroup]="loginForm" (ngSubmit)="onSubmit(loginForm)">
     <label for="email">
       Correo electrónico
-      <input type="email" name="" id="email" placeholder="Ingresa tu correo electrónico">
+      <input type="email" formControlName="email" id="email" placeholder="Ingresa tu correo electrónico" [ngClass]="{ error: email.errors && email.errors.email && (email.dirty || email.touched)}">
+      <small *ngIf="email.errors && email.errors.email && (email.dirty || email.touched)">Ingrese un Correo electrónico válido</small>
     </label>
     <label for="pwd">
       Contraseña
-      <input #passwordRef type="password" name="" id="pwd" placeholder="Ingresa tu email">
+      <input #passwordRef type="password" formControlName="pwd" id="pwd" placeholder="Ingresa tu contraseña">
       <ion-icon name="eye" *ngIf="showIcon" (click)="showPassword(true)"></ion-icon>
       <ion-icon name="eye-off" *ngIf="!showIcon" (click)="showPassword(false)"></ion-icon>
     </label>
-  </section>
+    <button type="submit" [disabled]="!loginForm.valid">Iniciar sesión</button>
+  </form>
   <!-- <a routerLink="/auth/forgotPassword">¿Olvidaste tu contraseña?</a> -->
-  <button>Iniciar sesión</button>
 </section>
