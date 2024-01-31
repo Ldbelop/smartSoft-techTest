@@ -1,0 +1,55 @@
+:host{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 20px;
+}
+
+#drop-zone{
+  width: 100%;
+  max-width: 320px;
+  height: 183px;
+  border-radius: 16px;
+  border: 2px dashed #9DBCCD;
+  background: #F0F0F0;
+  display: flex;
+  flex-direction: column;
+  row-gap: 24px;
+  justify-content: center;
+  align-items: center;
+}
+
+#drop-zone > p{
+  color: #8FB2C7;
+  font-size: 0.773rem;
+  font-weight: 500;
+  letter-spacing: -0.124px;
+}
+
+.cloud{
+  font-size: 44px;
+  color: #9DBCCD;
+}
+
+#drop-zone + span{
+  color: #3C515D;
+  font-size: 0.773rem;
+  font-weight: 600;
+  letter-spacing: -0.124px;
+}
+
+.uploadCsv{
+  width: 136px;
+  height: 40px;
+  border: none;
+  border-radius: 13px;
+  background: #1FA4B5;
+  color: #FAFAFA;
+  font-size: 0.773rem;
+  font-weight: 500;
+  letter-spacing: -0.124px;
+}

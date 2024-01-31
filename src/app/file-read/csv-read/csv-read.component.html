@@ -1,1 +1,6 @@
-<p>csv-read works!</p>
+<section #dropZone id="drop-zone" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)">
+  <ion-icon class="cloud" name="cloud-upload-outline"></ion-icon>
+  <p>Arrastra aquí tu .csv</p>
+</section>
+<span>o</span>
+<button class="uploadCsv">Sube un .csv</button>
