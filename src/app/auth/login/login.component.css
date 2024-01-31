@@ -1,0 +1,84 @@
+img{
+  height: 22px;
+  width: auto;
+  position: fixed;
+  top: 21px;
+}
+
+:host{
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-inline: 20px;
+}
+
+h1{
+  color: #133E57;
+  width: 100%;
+  max-width: 320px;
+  font-size: 1.25rem;
+  letter-spacing: -0.2px;
+  margin-bottom: 32px;
+}
+
+.inputDiv{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 320px;
+  gap: 24px;
+}
+
+label{
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #3C515D;
+  font-size: 0.773rem;
+  font-weight: 600;
+  letter-spacing: -0.124px;
+}
+
+input{
+  margin-top: 8px;
+  width: 100%;
+  height: 39px;
+  border-radius: 16px;
+  border: 1px solid #8FB2C7;
+  background: #F0F0F0;
+  padding-inline-start: 12px;
+}
+
+input::placeholder{
+  color: #8FB2C7;
+}
+
+a{
+  width: 100%;
+  max-width: 320px;
+  display: block;
+  font-size: 0.648rem;
+  color: #6D8EA1;
+  font-weight: 600;
+  letter-spacing: -0.104px;
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
+button{
+  max-width: 320px;
+  width: 100%;
+  height: 39px;
+  background-color: #1FA4B5;
+  border: none;
+  border-radius: 16px;
+  color: #FAFAFA;
+  font-size: 0.773rem;
+  font-weight: 500;
+  letter-spacing: -0.124px;
+}
