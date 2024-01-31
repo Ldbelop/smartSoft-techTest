@@ -44,6 +44,7 @@ h1{
 }
 
 label{
+  position: relative;
   width: 100%;
   max-width: 320px;
   display: flex;
@@ -65,8 +66,20 @@ input{
   padding-inline-start: 12px;
 }
 
+label > ion-icon{
+  cursor: pointer;
+  position: absolute;
+  right: 15px;
+  bottom: 12px;
+  color: #3e7495;
+}
+
 input::placeholder{
   color: #8FB2C7;
+}
+
+input:focus{
+  outline: 1px solid #3e7495;
 }
 
 /* a{

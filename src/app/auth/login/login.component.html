@@ -12,7 +12,9 @@
     </label>
     <label for="pwd">
       Contraseña
-      <input type="password" name="" id="pwd" placeholder="Ingresa tu email">
+      <input #passwordRef type="password" name="" id="pwd" placeholder="Ingresa tu email">
+      <ion-icon name="eye" *ngIf="showIcon" (click)="showPassword(true)"></ion-icon>
+      <ion-icon name="eye-off" *ngIf="!showIcon" (click)="showPassword(false)"></ion-icon>
     </label>
   </section>
   <!-- <a routerLink="/auth/forgotPassword">¿Olvidaste tu contraseña?</a> -->
