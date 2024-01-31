@@ -1,10 +1,16 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { isLoggedInGuard } from './guards/is-logged-in.guard';
 
 const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./auth/auth.module').then( module => module.AuthModule)
+  },
+  {
+    path: 'fileRead',
+    loadChildren: () => import('./file-read/file-read.module').then( module => module.FileReadModule),
+    canActivate: [isLoggedInGuard]
   },
   {
     path: '**',
