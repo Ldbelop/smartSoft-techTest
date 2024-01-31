@@ -1,18 +1,28 @@
-img{
-  height: 22px;
-  width: auto;
-  position: fixed;
-  top: 21px;
-}
-
 :host{
   height: 100%;
   width: 100%;
+}
+
+.landscapeBackground{
+  display: none;
+}
+
+.smartsoftIcon{
+  height: 22px;
+  width: auto;
+  position: absolute;
+  top: 21px;
+}
+
+.loginContainer{
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding-inline: 20px;
+  position: relative;
 }
 
 h1{
@@ -30,6 +40,7 @@ h1{
   width: 100%;
   max-width: 320px;
   gap: 24px;
+  margin-bottom: 24px;
 }
 
 label{
@@ -58,7 +69,7 @@ input::placeholder{
   color: #8FB2C7;
 }
 
-a{
+/* a{
   width: 100%;
   max-width: 320px;
   display: block;
@@ -68,7 +79,7 @@ a{
   letter-spacing: -0.104px;
   margin-top: 12px;
   margin-bottom: 24px;
-}
+} */
 
 button{
   max-width: 320px;
@@ -81,4 +92,54 @@ button{
   font-size: 0.773rem;
   font-weight: 500;
   letter-spacing: -0.124px;
+}
+
+@media screen and (min-width: 768px) {
+  :host{
+    display: flex;
+  }
+
+  .landscapeBackground,
+  .loginContainer{
+    width: 50%;
+  }
+
+  .loginContainer{
+    padding-inline: 32px;
+  }
+
+  .landscapeBackground{
+    position: relative;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .loginContainer > .smartsoftIcon{
+    display: none;
+  }
+
+  .serverRoom{
+    position: absolute;
+    object-fit: cover;
+    object-position: center;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    filter: brightness(30%);
+  }
+
+  .smartsoftIcon{
+    position: relative;
+    height: 48px;
+    width: auto;
+  }
+
+  .inputDiv,
+  h1,
+  label,
+  button{
+    max-width: 480px;
+  }
 }
