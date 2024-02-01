@@ -2,8 +2,23 @@
   height: 100%;
   width: 100%;
   display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+header{
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   justify-content: center;
-  align-items: flex-start;
+  gap: 32px;
+  padding-block: 32px;
+}
+
+.smartsoftIcon{
+  height: 70px;
+  width: auto;
 }
 
 input{
@@ -19,7 +34,7 @@ main{
   justify-content: flex-start;
   align-items: center;
   padding: 60px 20px;
-  max-width: 760px;
+  max-width: 906px;
 }
 
 .fileZoneContainer{
@@ -63,7 +78,7 @@ main{
   letter-spacing: -0.124px;
 }
 
-.uploadCsv{
+.logOut{
   width: 136px;
   height: 40px;
   border: none;
@@ -75,7 +90,7 @@ main{
   letter-spacing: -0.124px;
 }
 
-.leftColumn{
+.downRow{
   width: 100%;
   display: flex;
   flex-direction: column;
@@ -86,8 +101,8 @@ main{
   display: flex;
   flex-direction: column;
   width: 100%;
-  max-width: 320px;
   row-gap: 52px;
+  max-width: 320px;
   margin-block-end: 72px;
 }
 
@@ -133,7 +148,6 @@ main.changeFlex{
 }
 
 .chartSection > h1{
-  margin-block-end: 24px;
   color: #1FA4B5;
   font-size: 1.273rem;
   font-weight: 600;
@@ -142,7 +156,20 @@ main.changeFlex{
   text-align: center;
 }
 
-@media screen and (min-width: 700px) {
+.chartSection{
+  height: 0;
+  width: 0;
+}
+
+.renderedChart > .chartSection{
+  height: auto;
+}
+
+#MyChart{
+  width: 280px;
+}
+
+@media screen and (min-width: 900px) {
   .infoBanner{
     align-items: flex-start;
   }
@@ -152,18 +179,30 @@ main.changeFlex{
     text-align: start;
   }
 
+  .infoContainer{
+    flex-direction: row;
+    max-width: none;
+  }
+
   main.changeFlex{
     height: 100%;
-    flex-direction: row;
     row-gap: 0;
+    align-items: flex-start;
     justify-content: space-between;
   }
 
-  .chartSection{
+  .renderedChart > .chartSection{
     width: 285px;
+    height: auto;
   }
 
   .chartSection > h1{
     text-align: start;
+  }
+
+  .downRow{
+    flex-direction: row;
+    justify-content: center;
+    gap: 60px;
   }
 }

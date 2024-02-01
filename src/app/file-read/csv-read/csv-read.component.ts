@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import * as Papa from 'papaparse'
 import { Chart } from 'chart.js/auto';
+import { AuthService } from '../../auth/services/auth.service';
 
 @Component({
   selector: 'app-csv-read',
@@ -16,8 +17,13 @@ export class CsvReadComponent implements OnInit{
   highestAffected: any = null;
   chart: any = [];
 
+  constructor(private authService: AuthService){}
 
   ngOnInit(){
+  }
+
+  logout(){
+    this.authService.logout()
   }
 
   onDrop(event: DragEvent){
@@ -44,6 +50,7 @@ export class CsvReadComponent implements OnInit{
         Papa.parse(csvString, {
           complete: (results) => {
             this.calculateCovidData(results.data)
+            console.log(results.data)
           },
           error: (error: any) => {
             console.error('Error parsing CSV:', error.message);
@@ -163,9 +170,8 @@ export class CsvReadComponent implements OnInit{
     this.chart = new Chart("MyChart", {
       type: 'pie',
       data: {
-        labels: ['Deaths', 'Population'],
+        labels: ['Muertes', 'Poblacion total'],
         datasets: [{
-          label: '% de muertes totales en Estados Unidos',
           data: dataset,
           backgroundColor: ['rgb(103,103,103)', 'rgb(73,111,138)'],
           hoverOffset: 4,
