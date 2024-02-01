@@ -4,3 +4,20 @@
 </section>
 <span>o</span>
 <button class="uploadCsv">Sube un .csv</button>
+<div *ngIf="highestCovid != null">
+  Estado con mas muertos:
+  {{highestCovid.name}}
+  {{highestCovid.deaths}}
+</div>
+<div *ngIf="lowestCovid != null">
+  Estado con menos muertos:
+  {{lowestCovid.name}}
+  {{lowestCovid.deaths}}
+</div>
+<div *ngIf="highestAffected != null">
+  Estado más afectado:
+  {{highestAffected.name}}
+  {{highestAffected.population}}
+  {{highestAffected.deaths}}
+  Esto porque las muertes representaron un {{highestAffected.deathDeferPercentage}}%
+</div>
