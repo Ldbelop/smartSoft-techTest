@@ -2,15 +2,36 @@
   height: 100%;
   width: 100%;
   display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+input{
+  text-align: center;
+}
+
+main{
+  min-height: 100%;
+  width: 100%;
+  display: flex;
   flex-direction: column;
   row-gap: 24px;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 60px 20px;
+  max-width: 760px;
+}
+
+.fileZoneContainer{
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding-inline: 20px;
+  row-gap: 24px;
 }
 
 #drop-zone{
-  width: 100%;
+  min-width: 280px;
   max-width: 320px;
   height: 183px;
   border-radius: 16px;
@@ -52,4 +73,97 @@
   font-size: 0.773rem;
   font-weight: 500;
   letter-spacing: -0.124px;
+}
+
+.leftColumn{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.infoContainer{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 320px;
+  row-gap: 52px;
+  margin-block-end: 72px;
+}
+
+.infoBanner{
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 16px;
+}
+
+.infoBanner > h1{
+  color: #1FA4B5;
+  font-size: 3.273rem;
+  font-weight: 600;
+  word-wrap: break-word;
+  line-height: 2.8rem;
+  text-align: center;
+}
+
+.infoBanner > h2{
+  color: #567485;
+  font-size: 0.773rem;
+  font-weight: 500;
+  word-wrap: break-word;
+  text-align: center;
+}
+
+.bolden{
+  font-weight: 600;
+}
+
+main.changeFlex{
+  justify-content: flex-start;
+}
+
+.chartSection{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-block-end: 72px;
+}
+
+.chartSection > h1{
+  margin-block-end: 24px;
+  color: #1FA4B5;
+  font-size: 1.273rem;
+  font-weight: 600;
+  word-wrap: break-word;
+  line-height: 1.8rem;
+  text-align: center;
+}
+
+@media screen and (min-width: 700px) {
+  .infoBanner{
+    align-items: flex-start;
+  }
+
+  .infoBanner > h1,
+  .infoBanner > h2{
+    text-align: start;
+  }
+
+  main.changeFlex{
+    height: 100%;
+    flex-direction: row;
+    row-gap: 0;
+    justify-content: space-between;
+  }
+
+  .chartSection{
+    width: 285px;
+  }
+
+  .chartSection > h1{
+    text-align: start;
+  }
 }

@@ -1,17 +1,24 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import * as Papa from 'papaparse'
+import { Chart } from 'chart.js/auto';
 
 @Component({
   selector: 'app-csv-read',
   templateUrl: './csv-read.component.html',
   styleUrl: './csv-read.component.css'
 })
-export class CsvReadComponent {
+export class CsvReadComponent implements OnInit{
 
   @ViewChild('dropZone') dropZoneElement!: ElementRef
+  @ViewChild('fileUploadZone') fileUploadZoneElement!: ElementRef
   highestCovid: any = null;
   lowestCovid: any = null;
   highestAffected: any = null;
+  chart: any = [];
+
+
+  ngOnInit(){
+  }
 
   onDrop(event: DragEvent){
     event.preventDefault()
@@ -20,6 +27,7 @@ export class CsvReadComponent {
 
     if(file){
       if(this.isTypeCSV(file)){
+        this.fileName = file.name;
         this.parseCSVFile(file)
       } else{
         alert('Tipo de archivo no permitido') // implementar con sweet alert 2
@@ -35,9 +43,7 @@ export class CsvReadComponent {
         const csvString = event.target.result as string;
         Papa.parse(csvString, {
           complete: (results) => {
-            //console.log('Parsed CSV data:', results.data);
             this.calculateCovidData(results.data)
-
           },
           error: (error: any) => {
             console.error('Error parsing CSV:', error.message);
@@ -76,6 +82,30 @@ export class CsvReadComponent {
       return a.deathDeferPercentage - b.deathDeferPercentage
     }
 
+    const stateArray: any[] = this.returnFilledStateDataArray(parsedCSV)
+
+    const deathDeferSortedArray = [...stateArray];
+    stateArray.sort(compareDeaths)
+    deathDeferSortedArray.sort(compareDefer)
+    // console.log(stateArray)
+    console.log(deathDeferSortedArray)
+    this.lowestCovid = stateArray[0]
+    this.highestCovid = stateArray[stateArray.length -1]
+    this.highestAffected = deathDeferSortedArray[deathDeferSortedArray.length -1]
+
+    let totalPopulation: number = 0;
+    let totalDeaths: number = 0;
+
+    deathDeferSortedArray.forEach((state: any) => {
+      totalDeaths += parseInt(state.deaths);
+      totalPopulation += parseInt(state.population);
+    })
+
+    totalPopulation += totalDeaths;
+    this.renderGraph([totalDeaths, totalPopulation])
+  }
+
+  returnFilledStateDataArray(parsedCSV: any[]): any[]{
     function roundTwoDecimals(number: number){
       return parseFloat((Math.round(number * 100) / 100).toFixed(2));
     }
@@ -110,7 +140,7 @@ export class CsvReadComponent {
       if(statePopulation == 0){
         stateDeathDeferPercentage = 0;
       } else{
-        stateDeathDeferPercentage = roundTwoDecimals((stateDeaths / statePopulation) * 100)
+        stateDeathDeferPercentage = roundTwoDecimals((stateDeaths / (statePopulation + stateDeaths)) * 100)
       }
       stateArray.push(
         {
@@ -125,29 +155,69 @@ export class CsvReadComponent {
       )
     }
 
-    const deathDeferSortedArray = [...stateArray];
-    stateArray.sort(compareDeaths)
-    deathDeferSortedArray.sort(compareDefer)
-    console.log(stateArray)
-    console.log(deathDeferSortedArray)
-    this.highestCovid = stateArray[stateArray.length -1]
-    this.lowestCovid = stateArray[0];
-    this.highestAffected = deathDeferSortedArray[deathDeferSortedArray.length -1]
+    return stateArray
+  }
 
-    // console.log(parsedCSV[1][6]) // stateName
-    // console.log(parsedCSV[1][11]) // population
-    // let helper = 0;
-    // parsedCSV[1].forEach((element: any, index: number) => {
-    //   if(index > 11){
-    //     helper += parseInt(element);
-    //   }
+
+  renderGraph(dataset: number[]){
+    this.chart = new Chart("MyChart", {
+      type: 'pie',
+      data: {
+        labels: ['Deaths', 'Population'],
+        datasets: [{
+          label: '% de muertes totales en Estados Unidos',
+          data: dataset,
+          backgroundColor: ['rgb(103,103,103)', 'rgb(73,111,138)'],
+          hoverOffset: 4,
+        }]
+      },
+      options: {
+        // Additional options for the pie chart
+      }
+    });""
+
+
+    // console.log(this.canvas)
+    // this.canvas.nativeElement.getContext('2d')
+    // console.log(dataset)
+
+    // const data = {
+    //   labels: ['Muertes','Poblacion'],
+    //   datasets: [{
+    //     data: [30, 40], // Example data values
+    //     backgroundColor: ['red', 'green'], // Example background colors
+    //     hoverOffset: 4, // Offset when hovering over slices
+    //     // You can add more options specific to the pie dataset here
+    //   }]
+    // };
+    // //@ts-ignore
+    // this.chart = new Chart(this.canvas, {
+    //   type: 'pie',
+    //   data: data,
+    //   // options: {
+    //   //   scales: {
+    //   //     y: {
+    //   //       beginAtZero: true,
+    //   //     },
+    //   //   },
+    //   // },
     // });
-    // console.log(helper)
-    // let lolAss = 0;
-    // parsedCSV.forEach((element: any, index: number) => {
-    //   if
-    //   lolAss += index
-    // })
-    // console.log(parsedCSV[1])
+  }
+
+  fileName: string = "";
+
+  handleUpload(){
+    const file = this.fileUploadZoneElement.nativeElement.files[0];
+    this.fileName = file.name;
+
+    if(file){
+      if(this.isTypeCSV(file)){
+        this.parseCSVFile(file)
+      } else{
+        alert('Tipo de archivo no permitido') // implementar con sweet alert 2
+      }
+    }
   }
 }
+
+

@@ -1,23 +1,36 @@
-<section #dropZone id="drop-zone" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)">
-  <ion-icon class="cloud" name="cloud-upload-outline"></ion-icon>
-  <p>Arrastra aquí tu .csv</p>
-</section>
-<span>o</span>
-<button class="uploadCsv">Sube un .csv</button>
-<div *ngIf="highestCovid != null">
-  Estado con mas muertos:
-  {{highestCovid.name}}
-  {{highestCovid.deaths}}
-</div>
-<div *ngIf="lowestCovid != null">
-  Estado con menos muertos:
-  {{lowestCovid.name}}
-  {{lowestCovid.deaths}}
-</div>
-<div *ngIf="highestAffected != null">
-  Estado más afectado:
-  {{highestAffected.name}}
-  {{highestAffected.population}}
-  {{highestAffected.deaths}}
-  Esto porque las muertes representaron un {{highestAffected.deathDeferPercentage}}%
-</div>
+<main [ngClass]="{ changeFlex: highestCovid != null}">
+  <section class="leftColumn">
+    <section class="infoContainer" *ngIf="highestCovid != null">
+      <section *ngIf="highestCovid != null" class="infoBanner">
+        <h2>Estado con mayor acumulado</h2>
+        <h1>{{highestCovid.name}}</h1>
+        <h2>Con <span class="bolden">{{highestCovid.deaths | number}}</span> muertes por COVID-19</h2>
+      </section>
+      <section *ngIf="lowestCovid != null" class="infoBanner">
+        <h2>Estado con menor acumulado</h2>
+        <h1>{{lowestCovid.name}}</h1>
+        <h2>Con <span class="bolden">{{lowestCovid.deaths | number}}</span> muertes por COVID-19</h2>
+      </section>
+      <section *ngIf="highestAffected != null" class="infoBanner">
+        <h2>Estado más afectado</h2>
+        <h1>{{highestCovid.name}}</h1>
+        <h2>La cantidad de muertes <span class="bolden">({{highestAffected.deaths | number}})</span> en relación con la poblacion <span class="bolden">({{highestAffected.population | number}})</span>, representó un <span class="bolden">{{highestAffected.deathDeferPercentage}}%</span></h2>
+      </section>
+    </section>
+    <section class="chartSection">
+      <h1 *ngIf="highestCovid != null">% muertes en la poblacion de Estados Unidos</h1>
+      <div class="chart-container">
+        <canvas  id="MyChart" >{{ chart }}</canvas>
+      </div>
+    </section>
+  </section>
+  <section class="fileZoneContainer">
+    <section #dropZone id="drop-zone" (drop)="onDrop($event)" (dragover)="onDragOver($event)" (dragleave)="onDragLeave($event)">
+      <ion-icon *ngIf="highestCovid == null" class="cloud" name="cloud-upload-outline"></ion-icon>
+      <ion-icon *ngIf="highestCovid != null" class="cloud" name="document"></ion-icon>
+      <p *ngIf="highestCovid == null">Arrastra aquí tu .csv</p>
+      <p *ngIf="highestCovid != null">{{fileName}}</p>
+    </section>
+    <input type="file" #fileUploadZone (change)="handleUpload()">
+  </section>
+</main>
