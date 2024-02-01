@@ -1,6 +1,17 @@
+<header class="hamburguer">
+  <div class="hamburguerMenu" (click)="showHamburguer = !showHamburguer">
+    <div class="bar" [ngClass]="{ active: showHamburguer}"></div>
+    <div class="bar" [ngClass]="{ active: showHamburguer}"></div>
+    <div class="bar" [ngClass]="{ active: showHamburguer}"></div>
+  </div>
+  <img class="smartsoftIcon" src="../../../assets/cropped-Logo.png" alt="Smartsoft Logo">
+</header>
 <header>
   <img class="smartsoftIcon" src="../../../assets/cropped-Logo.png" alt="Smartsoft Logo">
-  <button class="logOut" (click)="logout()">Cerrar sesión</button>
+  <div>
+    <a class="header__link" routerLink="/crud">JSON Crud</a>
+    <button class="logOut" (click)="logout()">Cerrar sesión</button>
+  </div>
 </header>
 <main [ngClass]="{ changeFlex: highestCovid != null}">
   <section class="infoContainer" *ngIf="highestCovid != null">
@@ -38,3 +49,7 @@
     </section>
   </section>
 </main>
+<section class="hamburguerSection" [ngStyle]="{ right: showHamburguer ? '0': '100%'}">
+  <a class="header__link" routerLink="/crud">JSON Crud</a>
+  <button class="logOut" (click)="logout()">Cerrar sesión</button>
+</section>

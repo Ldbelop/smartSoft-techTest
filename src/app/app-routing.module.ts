@@ -15,6 +15,11 @@ const routes: Routes = [
     canActivate: [isLoggedInGuard]
   },
   {
+    path: 'crud',
+    loadChildren: () => import('./crud/crud.module').then( module => module.CrudModule),
+    canActivate: [isLoggedInGuard]
+  },
+  {
     path: '**',
     redirectTo: 'auth'
   }

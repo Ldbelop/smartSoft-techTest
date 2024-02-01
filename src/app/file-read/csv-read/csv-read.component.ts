@@ -16,6 +16,7 @@ export class CsvReadComponent implements OnInit{
   lowestCovid: any = null;
   highestAffected: any = null;
   chart: any = [];
+  showHamburguer: boolean = false;
 
   constructor(private authService: AuthService){}
 
