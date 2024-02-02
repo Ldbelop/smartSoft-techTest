@@ -116,6 +116,153 @@ header{
   letter-spacing: -0.124px;
 }
 
+.modalCreateUser{
+  background-color: rgba(45, 45, 45, 60%);
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modalCreateUser__form{
+  width: 100%;
+  height: fit-content;
+  max-width: 368px;
+  padding: 36px 24px;
+  background-color: white;
+  border-radius: 25px;
+}
+
+.modalCreateUser__form > h2{
+  text-align: center;
+  font-weight: 500;
+  color: #333333;
+}
+
+label:nth-child(1){
+  margin-bottom: 16px;
+}
+
+label{
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: #3C515D;
+  font-size: 0.773rem;
+  font-weight: 600;
+  letter-spacing: -0.124px;
+}
+
+.modalInput{
+  margin-top: 8px;
+  width: 100%;
+  height: 39px;
+  border-radius: 16px;
+  border: 1px solid #919699;
+  background: #F0F0F0;
+  padding-inline-start: 12px;
+}
+
+.modalInput + small{
+  color: #d37373;
+}
+
+textarea.modalInput{
+  height: 90px;
+}
+
+.modalInput:focus{
+  outline: 2px solid #1FA4B5;
+}
+
+.buttonPanel{
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  width: 100%;
+  margin-top: 32px;
+}
+
+.buttonPanel__button{
+  width: 100px;
+  height: 40px;
+  border-radius: 13px;
+  border: none;
+  background-color: #5f7d5f;
+  color: white;
+}
+
+.buttonPanel__button:disabled{
+  background-color: #5f7d5f57;
+}
+
+.buttonPanel__button.cancel{
+  background-color: #7d5f5f;
+}
+
+.bulletMenu{
+  position: sticky;
+  display: flex;
+  gap: 24px;
+  bottom: 0;
+  padding-block: 36px;
+}
+
+.bulletMenu__button{
+  border: none;
+  border-radius: 13px;
+  height: 40px;
+  padding-inline: 16px;
+  background-color: #333333;
+  color: white;
+}
+
+.bulletMenu__button:disabled{
+  background-color: #aaaaaa;
+}
+
+/* rgb(239, 239, 239) */
+/* rgba(239, 239, 239, 0.3) */
+
+.mat-elevation-z8{
+  margin-top: 36px;
+  max-width: 760px;
+}
+
+.tableTitle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333333;
+  padding-inline: 24px;
+  padding-block: 32px;
+}
+
+.tableTitle > input{
+  background-color: #545454;
+  color: white;
+  padding-left: 8px;
+  border: none;
+  border-radius: 13px;
+  height: 36px;
+}
+
+.tableTitle > input:focus{
+  outline: 2px solid #1FA4B5;
+}
+
+.tableTitle > h1{
+  color: white;
+  font-size: 36px;
+  line-height: 36px;
+}
+
 @media screen and (min-width: 500px){
   header{
     display: flex;
@@ -131,3 +278,4 @@ header{
     margin-inline-start: 52px;
   }
 }
+

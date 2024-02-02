@@ -17,3 +17,69 @@
   <a class="header__link" routerLink="/fileRead">Análisis CSV</a>
   <button class="logOut" (click)="logout()">Cerrar sesión</button>
 </section>
+<div class="mat-elevation-z8">
+  <div class="tableTitle">
+    <h1>JSON API C.R.U.D</h1>
+    <input (keyup)="applyFilter($event)" placeholder="Ej. Lorem" #input>
+  </div>
+  <mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> Id </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{user.id}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="title">
+      <mat-header-cell *matHeaderCellDef> Titulo </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{user.title}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="body">
+      <mat-header-cell *matHeaderCellDef> Cuerpo </mat-header-cell>
+      <mat-cell *matCellDef="let user"> {{user.body}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="radio">
+      <mat-header-cell *matHeaderCellDef></mat-header-cell>
+      <mat-cell *matCellDef="let user"><input type="radio" name="checkbox" (click)="setUser(user, $event)" [id]="user.id"></mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="['id', 'title', 'body', 'radio']"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: ['id', 'title', 'body', 'radio']"></mat-row>
+
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </mat-table>
+  <mat-paginator [pageSizeOptions]="[5, 10]" #MatPaginator showFirstLastButtons ="Select page of users"></mat-paginator>
+</div>
+<section class="bulletMenu">
+  <button class="bulletMenu__button" [disabled]="userToPerform != null" (click)="launchModal = !launchModal">Crear Usuario</button>
+  <button class="bulletMenu__button" [disabled]="userToPerform == null" (click)="launchModal = !launchModal">Editar Usuario</button>
+  <button class="bulletMenu__button" [disabled]="userToPerform == null" (click)="toggleDelete = !toggleDelete">Eliminar Usuario</button>
+</section>
+
+<section class="modalCreateUser" *ngIf="launchModal">
+  <form class="modalCreateUser__form" [formGroup]="buttonForm">
+    <label for="title">
+      Titulo
+      <input formControlName="title" type="text" id="title" class="modalInput"/>
+    </label>
+    <label for="body">
+      Cuerpo
+      <textarea formControlName="body" cols="30" rows="10" id="body" class="modalInput"></textarea>
+    </label>
+    <section class="buttonPanel">
+      <button class="buttonPanel__button" (click)="actionOnUser()" [disabled]="!buttonForm.valid">{{userToPerform == null ? 'Crear': 'Editar'}}</button>
+      <button class="buttonPanel__button cancel" (click)="launchModal = !launchModal">Cancelar</button>
+    </section>
+  </form>
+</section>
+<section class="modalCreateUser" *ngIf="toggleDelete">
+  <form class="modalCreateUser__form">
+    <h2>¿Seguro que deseas eliminar el usuario?</h2>
+    <section class="buttonPanel">
+      <button class="buttonPanel__button" (click)="deleteUser()">Eliminar</button>
+      <button class="buttonPanel__button cancel" (click)="toggleDelete = !toggleDelete">Cancelar</button>
+    </section>
+  </form>
+</section>
