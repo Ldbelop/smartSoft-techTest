@@ -114,6 +114,12 @@ header{
   font-size: 0.773rem;
   font-weight: 500;
   letter-spacing: -0.124px;
+  transition: 200ms background;
+}
+
+.logOut:hover{
+  cursor: pointer;
+  background: #147480;
 }
 
 .modalCreateUser{
@@ -215,12 +221,18 @@ textarea.modalInput{
 }
 
 .bulletMenu__button{
+  cursor: pointer;
   border: none;
   border-radius: 13px;
   height: 40px;
   padding-inline: 16px;
   background-color: #333333;
   color: white;
+  transition: 200ms all;
+}
+
+.bulletMenu__button:hover{
+  background-color: #555454;
 }
 
 .bulletMenu__button:disabled{
