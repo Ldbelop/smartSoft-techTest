@@ -5,16 +5,18 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from './services/auth.service';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 
 
 @NgModule({
   providers: [
-    AuthService
+    AuthService,
   ],
   declarations: [
     LoginComponent,
   ],
   imports: [
+    MatProgressSpinner,
     CommonModule,
     AuthRoutingModule,
     ReactiveFormsModule

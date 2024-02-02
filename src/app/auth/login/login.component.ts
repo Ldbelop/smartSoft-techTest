@@ -13,6 +13,7 @@ export class LoginComponent implements OnInit, AfterViewInit{
   showIcon: boolean = true;
   loginForm!: FormGroup;
   email: AbstractControl<any> | any;
+  showSpinner: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -46,6 +47,10 @@ export class LoginComponent implements OnInit, AfterViewInit{
   }
 
   onSubmit(form: FormGroup){
-    this.AuthService.login(form.value.email)
+    this.showSpinner = true;
+    setTimeout(() => {
+      this.AuthService.login(form.value.email)
+      this.showSpinner = false
+    },2000)
   }
 }

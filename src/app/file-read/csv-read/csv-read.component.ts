@@ -2,6 +2,7 @@ import { Component, ViewChild, ElementRef, OnInit } from '@angular/core';
 import * as Papa from 'papaparse'
 import { Chart } from 'chart.js/auto';
 import { AuthService } from '../../auth/services/auth.service';
+import { SweetAlertService } from '../../services/sweet-alert.service';
 
 @Component({
   selector: 'app-csv-read',
@@ -17,14 +18,24 @@ export class CsvReadComponent implements OnInit{
   highestAffected: any = null;
   chart: any = [];
   showHamburguer: boolean = false;
+  showSpinner: boolean = false;
+  spinnerText: string = "default";
 
-  constructor(private authService: AuthService){}
+  constructor(
+    private authService: AuthService,
+    private swalservice: SweetAlertService
+  ){}
 
   ngOnInit(){
   }
 
   logout(){
-    this.authService.logout()
+    this.showSpinner = true;
+    this.spinnerText = "Cerrando Sesión";
+    setTimeout(() => {
+      this.authService.logout()
+      this.showSpinner = false
+    },2000)
   }
 
   onDrop(event: DragEvent){
@@ -37,7 +48,7 @@ export class CsvReadComponent implements OnInit{
         this.fileName = file.name;
         this.parseCSVFile(file)
       } else{
-        alert('Tipo de archivo no permitido') // implementar con sweet alert 2
+        this.swalservice.showAlert("Tipo de archivo no permitido", "Solo se permiten archivos .csv", "error")
       }
     }
   }
@@ -95,7 +106,6 @@ export class CsvReadComponent implements OnInit{
     const deathDeferSortedArray = [...stateArray];
     stateArray.sort(compareDeaths)
     deathDeferSortedArray.sort(compareDefer)
-    // console.log(stateArray)
     console.log(deathDeferSortedArray)
     this.lowestCovid = stateArray[0]
     this.highestCovid = stateArray[stateArray.length -1]
@@ -178,37 +188,7 @@ export class CsvReadComponent implements OnInit{
           hoverOffset: 4,
         }]
       },
-      options: {
-        // Additional options for the pie chart
-      }
-    });""
-
-
-    // console.log(this.canvas)
-    // this.canvas.nativeElement.getContext('2d')
-    // console.log(dataset)
-
-    // const data = {
-    //   labels: ['Muertes','Poblacion'],
-    //   datasets: [{
-    //     data: [30, 40], // Example data values
-    //     backgroundColor: ['red', 'green'], // Example background colors
-    //     hoverOffset: 4, // Offset when hovering over slices
-    //     // You can add more options specific to the pie dataset here
-    //   }]
-    // };
-    // //@ts-ignore
-    // this.chart = new Chart(this.canvas, {
-    //   type: 'pie',
-    //   data: data,
-    //   // options: {
-    //   //   scales: {
-    //   //     y: {
-    //   //       beginAtZero: true,
-    //   //     },
-    //   //   },
-    //   // },
-    // });
+    });
   }
 
   fileName: string = "";
@@ -221,7 +201,7 @@ export class CsvReadComponent implements OnInit{
       if(this.isTypeCSV(file)){
         this.parseCSVFile(file)
       } else{
-        alert('Tipo de archivo no permitido') // implementar con sweet alert 2
+        this.swalservice.showAlert("Tipo de archivo no permitido", "Solo se permiten archivos .csv", "error")
       }
     }
   }

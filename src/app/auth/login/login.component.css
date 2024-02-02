@@ -112,11 +112,44 @@ button{
   font-size: 0.773rem;
   font-weight: 500;
   letter-spacing: -0.124px;
+  transition: 200ms background-color;
+}
+
+button:hover{
+  cursor: pointer;
+  background: #147480;
 }
 
 button:disabled{
   background-color: #6ba4ac;
 }
+
+.spinner{
+  background-color: rgba(45, 45, 45, 60%);
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner > .subDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 36px;
+  border-radius: 16px;
+}
+
+.subDiv > h2{
+  color: #545454;
+  margin-top: 32px;
+}
+
 
 @media screen and (min-width: 768px) {
   :host{

@@ -259,6 +259,33 @@ header{
   width: 42px;
 }
 
+.spinner{
+  background-color: rgba(45, 45, 45, 60%);
+  position: fixed;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner > .subDiv{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  padding: 36px;
+  border-radius: 16px;
+}
+
+.subDiv > h2{
+  color: #545454;
+  margin-top: 32px;
+}
+
+
 @media screen and (min-width: 500px){
   header{
     display: flex;

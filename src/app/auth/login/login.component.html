@@ -21,3 +21,10 @@
   </form>
   <!-- <a routerLink="/auth/forgotPassword">¿Olvidaste tu contraseña?</a> -->
 </section>
+
+<div class="spinner" *ngIf="showSpinner">
+  <section class="subDiv">
+    <mat-spinner diameter="80" color="#1FA4B5"></mat-spinner>
+    <h2>Iniciando Sesión</h2>
+  </section>
+</div>

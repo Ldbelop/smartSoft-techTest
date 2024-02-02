@@ -21,6 +21,7 @@ export class JsonCrudComponent implements OnInit{
   title: AbstractControl<any> | any;
   userArrayCopy!: User[];
   showSpinner: boolean = false;
+  spinnerText: string = "Cargando";
 
   constructor(
     private authService: AuthService,
@@ -60,7 +61,12 @@ export class JsonCrudComponent implements OnInit{
   }
 
   logout(){
-    this.authService.logout()
+    this.showSpinner = true;
+    this.spinnerText = "Cerrando Sesión";
+    setTimeout(() => {
+      this.authService.logout()
+      this.showSpinner = false
+    },2000)
   }
 
   applyFilter(event: Event) {

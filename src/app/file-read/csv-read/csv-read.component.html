@@ -53,3 +53,10 @@
   <a class="header__link" routerLink="/crud">JSON Crud</a>
   <button class="logOut" (click)="logout()">Cerrar sesión</button>
 </section>
+
+<div class="spinner" *ngIf="showSpinner">
+  <section class="subDiv">
+    <mat-spinner diameter="80" color="#1FA4B5"></mat-spinner>
+    <h2>{{spinnerText}}</h2>
+  </section>
+</div>
