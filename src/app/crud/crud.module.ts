@@ -9,17 +9,21 @@ import {MatFormFieldModule} from '@angular/material/form-field';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CrudMethodService } from './services/crud-method.service';
+import { SweetAlertService } from '../services/sweet-alert.service';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 
 
 @NgModule({
   providers: [
     CrudMethodService,
+    SweetAlertService
   ],
   declarations: [
-    JsonCrudComponent
+    JsonCrudComponent,
   ],
   imports: [
+    MatProgressSpinnerModule,
     ReactiveFormsModule,
     HttpClientModule,
     MatPaginator,

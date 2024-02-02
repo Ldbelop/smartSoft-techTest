@@ -4,6 +4,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { AbstractControl, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { CrudMethodService, User } from '../services/crud-method.service';
+import { SweetAlertService } from '../../services/sweet-alert.service';
 
 @Component({
   selector: 'app-json-crud',
@@ -18,14 +19,18 @@ export class JsonCrudComponent implements OnInit{
   launchModal: boolean = false;
   toggleDelete: boolean = false;
   title: AbstractControl<any> | any;
+  userArrayCopy!: User[];
+  showSpinner: boolean = false;
 
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private crudService: CrudMethodService
+    private crudService: CrudMethodService,
+    private swalService: SweetAlertService
   ){}
 
   ngOnInit(){
+    this.showSpinner = true;
     this.buttonForm = this.fb.group({
       title: new FormControl('',[
         Validators.required,
@@ -39,8 +44,10 @@ export class JsonCrudComponent implements OnInit{
       userArray.forEach((element: User) => {
         element.body = this.trimBody(element.body)
       });
+      this.userArrayCopy = userArray;
       this.dataSource = new MatTableDataSource(userArray)
       this.dataSource.paginator = this.paginator;
+      this.showSpinner = false;
     })
   }
 
@@ -96,24 +103,68 @@ export class JsonCrudComponent implements OnInit{
     }
   }
 
+  renderTable(){
+    this.dataSource = new MatTableDataSource(this.userArrayCopy)
+    this.dataSource.paginator = this.paginator;
+  }
+
   createUser(title: string, body: string){
+    this.showSpinner = true;
     this.crudService.createUser(title,body).subscribe(response => {
-      console.log(response)
-      alert(response.id)
+      const parsedUser = JSON.parse(response.body)
+      const newUser: User = {
+        //@ts-ignore
+        id: response.id,
+        title: parsedUser.title,
+        body: parsedUser.body,
+        userId: parsedUser.userId
+      }
+      this.userArrayCopy.push(newUser)
+      this.renderTable()
+      this.swalService.showAlert('¡Se creo exitosamente el usuario!', `Quedó con un Id: ${newUser.id} y un Titulo: ${newUser.title}`, "success")
+      this.showSpinner = false;
+    }, error => {
+      this.swalService.showAlert('Hubo un error creando el usuario', "Intentalo de nuevo", "error")
+      this.showSpinner = false;
     })
   }
 
   editUser(title: string, body: string, id: number){
+    this.showSpinner = true;
     this.crudService.editUser(title,body, id).subscribe(response => {
-      console.log(response)
-      alert(response.id)
+      const parsedUser = JSON.parse(response.body)
+      const editedUser: User = {
+        //@ts-ignore
+        id: response.id,
+        title: parsedUser.title,
+        body: parsedUser.body,
+        userId: parsedUser.userId
+      }
+      //@ts-ignore
+      const indexOfUserToReplace: number = this.userArrayCopy.indexOf(this.userArrayCopy.find((user: User) => user.id == editedUser.id))
+      this.userArrayCopy.splice(indexOfUserToReplace, 1, editedUser)
+      this.renderTable()
+      this.swalService.showAlert('¡Se edito exitosamente el usuario!', `Quedó con un Id: ${editedUser.id} y un Titulo: ${editedUser.title}`, "success")
+      this.showSpinner = false;
+    }, error => {
+      this.swalService.showAlert('Hubo un error editando el usuario', "Intentalo de nuevo", "error")
+      this.showSpinner = false;
     })
   }
 
   deleteUser(){
+    this.showSpinner = true;
     this.toggleDelete = !this.toggleDelete
     this.crudService.deleteUser(this.userToPerform!.id).subscribe(response => {
-      alert(`Se borró exitosamente el usuario con el id ${this.userToPerform!.id}`)
+      //@ts-ignore
+      const indexOfUserToReplace: number = this.userArrayCopy.indexOf(this.userArrayCopy.find((user: User) => user.id == this.userToPerform.id))
+      this.userArrayCopy.splice(indexOfUserToReplace, 1)
+      this.renderTable()
+      this.swalService.showAlert('¡Se borró exitosamente el usuario!', '', "success")
+      this.showSpinner = false;
+    }, error => {
+      this.swalService.showAlert('Hubo un error borrando el usuario', "Intentalo de nuevo", "error")
+      this.showSpinner = false;
     })
   }
 }
