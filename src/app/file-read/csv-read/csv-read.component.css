@@ -95,6 +95,12 @@ main{
   font-size: 0.773rem;
   font-weight: 500;
   letter-spacing: -0.124px;
+  transition: 200ms background;
+}
+
+.logOut:hover{
+  cursor: pointer;
+  background: #147480;
 }
 
 .downRow{
@@ -288,7 +294,7 @@ header{
     height: 100%;
     row-gap: 0;
     align-items: flex-start;
-    justify-content: space-between;
+    justify-content: flex-start;
   }
 
   .renderedChart > .chartSection{
